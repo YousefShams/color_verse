@@ -1,4 +1,5 @@
 import 'package:color_verse/app/extensions/extensions.dart';
+import 'package:color_verse/app/resources/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../resources/app_fonts.dart';
 import '../resources/app_values.dart';
@@ -13,26 +14,47 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: AppValues.buttonWidth,
-      height: AppValues.buttonHeight,
-      margin: const EdgeInsets.only(bottom: AppValues.pagePadding),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(1000),
-        // boxShadow: [BoxShadow(color: AppColors.primaryColorDarker!.withOpacity(0.3),
-        // offset: const Offset(5, 9), spreadRadius: 0)]
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical:AppValues.buttonPadding),
+      child: FilledButton(
+        style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.primaryColor)),
+        onPressed: () { onPressed(); },
+        child: Padding(
+          padding: const EdgeInsets.all(AppValues.buttonPadding),
+          child: Text(text, style: context.textTheme.bodyMedium?.copyWith(
+              fontWeight: AppFonts.mediumFontWeight,
+              fontSize: AppFonts.biggerFontSize, color: Colors.white)
+          ),
+        )
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical:AppValues.buttonPadding),
-        child: FilledButton(
+    );
+  }
+}
+
+class DefaultOutlinedButton extends StatelessWidget {
+  final Function onPressed;
+  final String text;
+
+  const DefaultOutlinedButton({Key? key, required this.onPressed,
+    required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical:AppValues.buttonPadding),
+      child: OutlinedButton(
           onPressed: () { onPressed(); },
+          style: OutlinedButton.styleFrom(
+            shape: const StadiumBorder(),
+            side: const BorderSide(width:2,color: AppColors.primaryColor),
+          ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppValues.buttonPadding),
+            padding: const EdgeInsets.all(AppValues.buttonPadding),
             child: Text(text, style: context.textTheme.bodyMedium?.copyWith(
-              fontSize: AppFonts.biggerFontSize)
+                fontWeight: AppFonts.mediumFontWeight,
+                fontSize: AppFonts.biggerFontSize, color: AppColors.primaryColor)
             ),
           )
-        ),
       ),
     );
   }

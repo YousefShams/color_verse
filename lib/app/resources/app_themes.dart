@@ -21,7 +21,7 @@ class AppThemes {
           titleLarge: AppFonts.getBoldStyle(color: Colors.black),
           titleMedium: AppFonts.getMediumStyle(size: AppFonts.mediumFontSize, color: Colors.blueGrey),
           bodyMedium: AppFonts.getRegularStyle(size: AppFonts.smallFontSize, color: Colors.black),
-          bodyLarge: AppFonts.getMediumStyle(size: AppFonts.mediumFontSize, color: Colors.black),
+          bodyLarge: AppFonts.getRegularStyle(size: AppFonts.mediumFontSize, color: Colors.black),
           bodySmall: AppFonts.getRegularStyle(color: Colors.blueGrey, size: AppFonts.tinyFontSize),
           labelMedium: AppFonts.getRegularStyle(size: AppFonts.tinyFontSize, color: Colors.blueGrey),
           labelLarge: AppFonts.getMediumStyle(size: AppFonts.smallerFontSize, color: Colors.black),

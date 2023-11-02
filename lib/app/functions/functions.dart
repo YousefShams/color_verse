@@ -1,4 +1,7 @@
 
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:color_verse/app/constants/platte_color_names.dart';
 
 class AppFunctions {
@@ -13,6 +16,38 @@ class AppFunctions {
     final copy = hexCodes.toList()..shuffle();
     return copy.sublist(0,3).fold("",(prev , curr) => "$prev#${findNearestColorName(curr)}  ");
 
+  }
+
+  static String getHexCodeFromColor(Color color) {
+    return '#FF${color.value.toRadixString(16).substring(2).toUpperCase()}';
+  }
+
+
+  static Color _hexToColor(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll("#", "");
+    int value = int.parse(hexColor, radix: 16);
+    return Color(value);
+  }
+
+  static double calculateColorDistanceFromPalette(String hexColor, List<String> palette) {
+    Color color = _hexToColor(hexColor);
+    double? minDistance;
+    for(var paletteColorCode in palette) {
+      Color paletteColor = _hexToColor(paletteColorCode);
+
+      int r = (color.red - paletteColor.red).abs();
+      int g = (color.green - paletteColor.green).abs();
+      int b = (color.blue - paletteColor.blue).abs();
+      final distance = (r+g+b)/3;
+      if(minDistance == null) {
+        minDistance = distance;
+      }
+      else {
+        minDistance = min(minDistance, distance);
+      }
+    }
+
+    return minDistance!;
   }
 
   static String findNearestColorName(String hexColor) {

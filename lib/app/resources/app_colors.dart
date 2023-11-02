@@ -10,4 +10,7 @@ class AppColors {
   static final splashColor = lightPrimaryColor.withOpacity(0.5);
   static final defaultIconColor = Colors.grey[600];
   static const hashtagColor = Color(0xff9c9c9c);
+  static final colorPaletteHexBox = Colors.black.withOpacity(0.175);
+
+  
 }

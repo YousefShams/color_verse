@@ -11,8 +11,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const p = AppValues.pagePadding;
     return Padding(
-      padding: const EdgeInsets.all(AppValues.pagePadding),
+      padding: const EdgeInsets.fromLTRB(p,p,p,0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

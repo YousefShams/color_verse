@@ -1,6 +1,4 @@
 
 class AppSharedPrefsKeys {
-  static const reactionMsHistory = "reactionMsHistory";
-  static const currentGameMode = "currentGameMode";
-
+  static const savedPalettes = "savedPalettes";
 }

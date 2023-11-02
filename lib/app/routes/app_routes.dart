@@ -1,4 +1,5 @@
 import 'package:color_verse/presentation/view/bookmarks/booksmarks_screen.dart';
+import 'package:color_verse/presentation/view/color_palette/color_palette_view.dart';
 import 'package:color_verse/presentation/view/generate/generate_screen.dart';
 import 'package:color_verse/presentation/view/home/home_view.dart';
 import 'package:color_verse/presentation/view/images/images_view.dart';
@@ -16,6 +17,7 @@ class AppRoutes {
   static const generateRoute = "/generate";
   static const imagesRoute = "/images";
   static const bookmarksRoute = "/bookmarks";
+  static const colorPaletteRoute = "/color-palette";
 
 
 
@@ -26,6 +28,7 @@ class AppRoutes {
     imagesRoute : const ImageScreen(),
     generateRoute : const GenerateScreen(),
     bookmarksRoute : const BookmarksScreen(),
+    colorPaletteRoute : const ColorPaletteScreen()
   };
 
   static Widget getScreenFromRoute(String? route) {
