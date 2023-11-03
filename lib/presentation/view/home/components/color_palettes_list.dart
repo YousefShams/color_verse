@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 class ColorPalettesList extends StatelessWidget {
   final List<List<String>> colorPalettes;
-  const ColorPalettesList({Key? key, required this.colorPalettes}) : super(key: key);
+  final Function onPaletteSave;
+  final Function isPaletteSaved;
+  const ColorPalettesList({Key? key, required this.colorPalettes,
+    required this.onPaletteSave, required this.isPaletteSaved}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +14,10 @@ class ColorPalettesList extends StatelessWidget {
       child: ListView.builder(
         itemCount: colorPalettes.length,
         itemBuilder: (context, index) =>
-            ColorPaletteWidget(hexColors: colorPalettes[index]),
+            ColorPaletteWidget(hexColors: colorPalettes[index],
+              onPaletteSave: () { onPaletteSave(index); },
+              isPaletteSaved:  isPaletteSaved(index),
+            ),
       ),
     );
   }

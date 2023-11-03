@@ -18,13 +18,14 @@ class AppThemes {
           centerTitle: true,
         ),
         textTheme: TextTheme(
-          titleLarge: AppFonts.getBoldStyle(color: Colors.black),
-          titleMedium: AppFonts.getMediumStyle(size: AppFonts.mediumFontSize, color: Colors.blueGrey),
-          bodyMedium: AppFonts.getRegularStyle(size: AppFonts.smallFontSize, color: Colors.black),
-          bodyLarge: AppFonts.getRegularStyle(size: AppFonts.mediumFontSize, color: Colors.black),
-          bodySmall: AppFonts.getRegularStyle(color: Colors.blueGrey, size: AppFonts.tinyFontSize),
-          labelMedium: AppFonts.getRegularStyle(size: AppFonts.tinyFontSize, color: Colors.blueGrey),
-          labelLarge: AppFonts.getMediumStyle(size: AppFonts.smallerFontSize, color: Colors.black),
+          titleLarge: AppFonts.getBoldStyle(color: Colors.grey[600]!),
+          titleMedium: AppFonts.getMediumStyle(size: AppFonts.mediumFontSize, color: Colors.grey[600]!),
+          bodyMedium: AppFonts.getRegularStyle(size: AppFonts.smallFontSize, color: Colors.grey[600]!),
+          bodyLarge: AppFonts.getRegularStyle(size: AppFonts.mediumFontSize, color: Colors.grey[600]!),
+          bodySmall: AppFonts.getRegularStyle(color: Colors.grey[600]!, size: AppFonts.tinyFontSize),
+          labelSmall: AppFonts.getRegularStyle(size: AppFonts.smallestFontSize, color: Colors.grey[600]!),
+          labelMedium: AppFonts.getRegularStyle(size: AppFonts.tinyFontSize, color: Colors.grey[600]!),
+          labelLarge: AppFonts.getRegularStyle(size: AppFonts.smallerFontSize, color: Colors.grey[600]!),
         ),
         inputDecorationTheme: InputDecorationTheme(
             filled: true,
@@ -46,6 +47,7 @@ class AppThemes {
             elevation: 20,
             unselectedItemColor: Colors.blueGrey[300]!
         ),
+      useMaterial3: true
     );
   }
 

@@ -1,4 +1,5 @@
 
-class AppSharedPrefsKeys {
-  static const savedPalettes = "savedPalettes";
+class AppDbKeys {
+  static const palettesDb = "palettesDb";
+  static const colorsDb = "colorsDb";
 }

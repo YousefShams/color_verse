@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/functions/functions.dart';
 import '../../../../app/resources/app_values.dart';
-import '../../color_palette/components/color_palette_hex.dart';
+import '../../../../app/components/color_palette_hex.dart';
 
 class ColorPalette extends StatelessWidget {
   final List<String> palette;

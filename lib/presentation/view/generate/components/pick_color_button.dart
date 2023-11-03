@@ -1,5 +1,4 @@
-import 'package:color_verse/app/resources/app_values.dart';
-import 'package:color_verse/presentation/view/generate/components/color_picker_widget.dart';
+import 'package:color_verse/presentation/view/generate/components/show_color_picker.dart';
 import 'package:flutter/material.dart';
 import '../../../../app/components/default_button.dart';
 import '../../../../app/resources/app_strings.dart';
@@ -15,15 +14,8 @@ class PickColorButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        DefaultButton(text: AppStrings.pickColor,onPressed: (){
-         showModalBottomSheet(
-             context: context,
-             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-             shape: RoundedRectangleBorder(borderRadius:
-              BorderRadius.circular(AppValues.defaultBorderRadius)),
-             enableDrag: false, showDragHandle: true,
-             builder: (context) => DefaultColorPicker(pickedColor: pickedColor, onChanged: onChanged)
-         );
+        DefaultButton(text: AppStrings.pickColor, onPressed: (){
+          showColorPicker(context, pickedColor, onChanged);
         }),
         const Spacer(),
         Container(

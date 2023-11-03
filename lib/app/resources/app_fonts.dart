@@ -8,6 +8,7 @@ class AppFonts {
   static const mediumFontWeight = FontWeight.w500;
   static const boldFontWeight = FontWeight.w700;
 
+  static const double smallestFontSize = 11.0;
   static const double tinyFontSize = 12.0;
   static const double smallerFontSize = 13.0;
   static const double smallFontSize = 14.0;
@@ -15,6 +16,7 @@ class AppFonts {
   static const double mediumFontSize = 16.0;
   static const double largeFontSize = 18.0;
   static const double xLFontSize = 20.0;
+  static const double xlLargerFontSize = 25.0;
   static const double xXLFontSize = 33.0;
 
   static getRegularStyle({double size = 14, Color color = Colors.black}) {

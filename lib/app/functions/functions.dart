@@ -13,9 +13,14 @@ class AppFunctions {
   }
 
   static String getColorNameFromHexCodes(List<String> hexCodes) {
-    final copy = hexCodes.toList()..shuffle();
+    final copy = hexCodes.toList();
     return copy.sublist(0,3).fold("",(prev , curr) => "$prev#${findNearestColorName(curr)}  ");
 
+  }
+
+  static String getColorNameFromCode(String hexCode) {
+    final result = findNearestColorName(hexCode);
+    return result.split("_").map((word) => word[0].toUpperCase()+word.substring(1)).join(" ");
   }
 
   static String getHexCodeFromColor(Color color) {
@@ -77,5 +82,11 @@ class AppFunctions {
 
     return nearestColorName;
   }
-  
+
+  static bool isPalettesEqual(List<String> palette1, List<String> palette2) {
+    for(int i = 0 ; i< palette1.length ; i++) {
+      if(palette1[i] != palette2[i]) return false;
+    }
+    return true;
+  }
 }

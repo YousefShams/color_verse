@@ -1,3 +1,5 @@
+// ignore_for_file: hash_and_equals
+
 class PaletteSimilarityResult {
 
   final List<String> palette;
@@ -18,7 +20,7 @@ class PaletteSimilarityResult {
         break;
       }
     }
-    return isSamePalette;
+    return isSamePalette && isSameDistance;
   }
 
 

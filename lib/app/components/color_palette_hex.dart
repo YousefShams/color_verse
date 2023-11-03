@@ -21,8 +21,12 @@ class ColorPaletteHex extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(hexCode, style: context.textTheme.bodyMedium?.copyWith(color: Colors.white)),
-          IconButton(onPressed: (){ FlutterClipboard.copy(hexCode); },
+          Text(hexCode,
+              style: context.textTheme.bodyMedium?.copyWith(color: Colors.white)),
+          const SizedBox(width: AppValues.smallerPadding),
+          IconButton(
+              style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
+              onPressed: (){ FlutterClipboard.copy(hexCode); },
               icon: const Icon(Icons.copy_rounded,color: Colors.white,))
         ],
       ),

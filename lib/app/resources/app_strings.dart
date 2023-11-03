@@ -7,5 +7,9 @@ class AppStrings {
   static const homeTitle = "Explore Color Palettes";
   static const pickColor = "Pick a Color";
   static const save = "Save";
+  static const seeAll = "See all";
+  static const yourPalettes = "Your Palettes";
+  static const yourColors = "Your Colors";
+
 
 }

@@ -1,3 +1,5 @@
+import 'package:color_verse/app/resources/app_assets.dart';
+import 'package:color_verse/data/apis/local/local_api.dart';
 import 'package:color_verse/presentation/view/generate/components/color_palette.dart';
 import 'package:color_verse/presentation/view/generate/components/generate_bottom_buttons.dart';
 import 'package:color_verse/presentation/view/generate/components/pick_color_button.dart';
@@ -5,7 +7,9 @@ import 'package:color_verse/presentation/view_model/generate/cubit.dart';
 import 'package:color_verse/presentation/view_model/generate/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import '../../../app/resources/app_values.dart';
+import 'components/show_color_picker.dart';
 
 class GenerateScreen extends StatelessWidget {
   const GenerateScreen({Key? key}) : super(key: key);
@@ -14,7 +18,7 @@ class GenerateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const p = AppValues.pagePadding;
     return BlocProvider(
-      create: (cubitContext) => GenerateCubit(),
+      create: (cubitContext) => GenerateCubit(const LocalApi()),
       child: BlocBuilder<GenerateCubit, GenerateState>(
         builder: (cubitContext, state) {
           final cubit = GenerateCubit.get(cubitContext);
@@ -24,9 +28,15 @@ class GenerateScreen extends StatelessWidget {
               children: [
                 PickColorButton(pickedColor: cubit.pickedColor,
                   onChanged: cubit.onColorChanged,),
-                const SizedBox(height: AppValues.pagePadding),
-                (!cubit.isPaletteGenerated) ? const SizedBox.shrink() :
-                ColorPalette(palette: cubit.generatedPalette!.palette),
+                Visibility(
+                  visible: cubit.isPaletteGenerated,
+                  replacement: const Spacer(),
+                  child: const SizedBox(height: AppValues.pagePadding),
+                ),
+                (!cubit.isPaletteGenerated) ? GestureDetector(
+                  onTap: () { showColorPicker(context, cubit.pickedColor, cubit.onColorChanged); },
+                  child: Lottie.asset(AppAssets.colors, width: 300)
+                ) : ColorPalette(palette: cubit.generatedPalette!.palette),
                 (!cubit.isPaletteGenerated) ? const Spacer() :
                 const SizedBox(height: AppValues.verticalSpaceBetweenWidgets),
                 GenerateBottomButtons(onGenerate: cubit.generatePalettes,
