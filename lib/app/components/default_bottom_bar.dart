@@ -18,7 +18,7 @@ class DefaultBottomNavBar extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppValues.defaultBorderRadius),
         boxShadow: [BoxShadow(color: context.textTheme.titleLarge!.color!.withOpacity(0.3),
-            blurRadius: 13, spreadRadius: -15, offset: const Offset(3, 5))]
+            blurRadius: 15, spreadRadius: -7, offset: const Offset(0, 5))]
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(AppValues.defaultBorderRadius),

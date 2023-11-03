@@ -5,6 +5,7 @@ import 'package:color_verse/app/resources/app_strings.dart';
 import 'package:color_verse/app/resources/app_values.dart';
 import 'package:color_verse/data/apis/local/local_api.dart';
 import 'package:color_verse/presentation/view/home/components/color_palettes_list.dart';
+import 'package:color_verse/presentation/view/home/components/home_title.dart';
 import 'package:color_verse/presentation/view_model/home/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const AppTitle(big: true, color:AppColors.primaryColor,title: AppStrings.homeTitle),
+                  const HomeTitle(),
                   const SizedBox(height: AppValues.verticalSpaceBetweenWidgets),
                   ColorPalettesList(colorPalettes: appPalettes,
                     onPaletteSave: cubit.togglePaletteFavButton, isPaletteSaved: cubit.isPaletteSaved,)

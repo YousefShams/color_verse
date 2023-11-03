@@ -8,13 +8,14 @@ import '../resources/app_values.dart';
 class DefaultButton extends StatelessWidget {
   final Function onPressed;
   final String text;
-
+  final bool expanded;
   const DefaultButton({Key? key, required this.onPressed,
-    required this.text}) : super(key: key);
+    required this.text, this.expanded = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      width: expanded ? double.maxFinite : null,
       padding: const EdgeInsets.symmetric(vertical:AppValues.buttonPadding),
       child: FilledButton(
         style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.primaryColor)),
@@ -23,7 +24,8 @@ class DefaultButton extends StatelessWidget {
           padding: const EdgeInsets.all(AppValues.buttonPadding),
           child: Text(text, style: context.textTheme.bodyMedium?.copyWith(
               fontWeight: AppFonts.mediumFontWeight,
-              fontSize: AppFonts.biggerFontSize, color: Colors.white)
+              fontSize: AppFonts.smallFontSize, color: Colors.white),
+            textAlign: TextAlign.center,
           ),
         )
       ),
@@ -34,13 +36,15 @@ class DefaultButton extends StatelessWidget {
 class DefaultOutlinedButton extends StatelessWidget {
   final Function onPressed;
   final String text;
+  final bool expanded;
 
   const DefaultOutlinedButton({Key? key, required this.onPressed,
-    required this.text}) : super(key: key);
+    required this.text, this.expanded = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      width: expanded ? double.maxFinite : null,
       padding: const EdgeInsets.symmetric(vertical:AppValues.buttonPadding),
       child: OutlinedButton(
           onPressed: () { onPressed(); },
@@ -52,7 +56,8 @@ class DefaultOutlinedButton extends StatelessWidget {
             padding: const EdgeInsets.all(AppValues.buttonPadding),
             child: Text(text, style: context.textTheme.bodyMedium?.copyWith(
                 fontWeight: AppFonts.mediumFontWeight,
-                fontSize: AppFonts.biggerFontSize, color: AppColors.primaryColor)
+                fontSize: AppFonts.smallFontSize, color: AppColors.primaryColor),
+              textAlign: TextAlign.center,
             ),
           )
       ),

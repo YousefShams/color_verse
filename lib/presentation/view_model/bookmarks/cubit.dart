@@ -26,7 +26,7 @@ class BookmarksCubit extends Cubit<BookmarksState> {
   Future getBookmarkedColor() async {
     emit(BookmarksLoadingState());
     final result = List<String>.from((await localApi.getAll(AppDbKeys.colorsDb)).values.toList() ?? []);
-    colorsCodes.addAll(result);
+    colorsCodes = result.toList();
     colorsCodesView = colorsCodes.sublist(0, (colorsCodes.length < 4) ? colorsCodes.length : 4);
     emit(BookmarksUpdateState());
   }
@@ -34,10 +34,22 @@ class BookmarksCubit extends Cubit<BookmarksState> {
   Future getBookmarkedPalettes() async {
     emit(BookmarksLoadingState());
     final result = List<List<String>>.from((await localApi.getAll(AppDbKeys.palettesDb)).values.toList() ?? []);
-    palettes.addAll(result);
+    palettes = result.toList();
     palettesView = palettes.sublist(0, (palettes.length < 4) ? palettes.length : 4);
     emit(BookmarksUpdateState());
   }
 
+  void deleteBookmarkedColor(String color) {
+    localApi.delete(AppDbKeys.colorsDb, color);
+    colorsCodes.remove(color);
+    colorsCodesView.remove(color);
+    emit(BookmarksUpdateState());
+  }
 
+  void deleteBookmarkedPalette(List<String> palette) {
+    localApi.delete(AppDbKeys.palettesDb, palette.toString());
+    palettes.remove(palettes.firstWhere((e) => e.toString()==palette.toString()));
+    palettesView.remove(palettesView.firstWhere((e) => e.toString()==palette.toString()));
+    emit(BookmarksUpdateState());
+  }
 }

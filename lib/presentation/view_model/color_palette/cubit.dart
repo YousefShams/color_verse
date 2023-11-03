@@ -1,5 +1,3 @@
-import 'package:color_verse/app/constants/app_palettes.dart';
-import 'package:color_verse/app/functions/functions.dart';
 import 'package:color_verse/app/resources/app_shared_prefs_keys.dart';
 import 'package:color_verse/presentation/view_model/color_palette/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -15,6 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
   //Variables
   List<String> savedColorsCodes = [];
   List<List<String>> savedPalettes = [];
+  final palettes = appPalettes;
 
   //Events
   Future init() async {
@@ -32,12 +33,12 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   bool isPaletteSaved(int index) {
-    final palette = appPalettes[index];
+    final palette = palettes[index];
     return savedPalettes.any((savedPalette) => AppFunctions.isPalettesEqual(savedPalette, palette));
   }
 
   Future togglePaletteFavButton(int index) async {
-    final palette = appPalettes[index];
+    final palette = palettes[index];
     final isSaved = isPaletteSaved(index);
     if(!isSaved) {
       await localApi.save(AppDbKeys.palettesDb, {palette.toString() : palette});

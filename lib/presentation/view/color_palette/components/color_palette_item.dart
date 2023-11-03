@@ -1,7 +1,8 @@
+import 'package:color_verse/app/components/close_icon_button.dart';
+import 'package:color_verse/app/components/fav_button.dart';
 import 'package:color_verse/app/functions/functions.dart';
-import 'package:color_verse/app/resources/app_colors.dart';
 import 'package:color_verse/app/resources/app_values.dart';
-import 'package:color_verse/app/components/color_palette_hex.dart';
+import 'package:color_verse/app/components/color_hex.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,13 +29,7 @@ class ColorPaletteItem extends StatelessWidget {
               children: [
                 Visibility(
                   visible: index == 0,
-                  child: GestureDetector(
-                    onTap: () { Navigator.pop(context); },
-                    child: CircleAvatar(
-                      backgroundColor: AppColors.colorPaletteHexBox,
-                      child: const Icon(Icons.close_rounded, color: Colors.white),
-                    ),
-                  ),
+                  child: const CloseIconButton(),
                 ),
                 const Spacer()
               ],
@@ -44,20 +39,10 @@ class ColorPaletteItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ColorPaletteHex(hexCode: hexCode),
+                ColorHex(hexCode: hexCode),
                 const SizedBox(width: AppValues.smallerPadding),
-                GestureDetector(
-                  onTap: () { onColorFavToggle(index); },
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: AppColors.colorPaletteHexBox,
-                    child: Visibility(
-                      visible: isSaved,
-                      replacement: Icon(CupertinoIcons.heart, color: AppColors.defaultIconColor),
-                      child: const Icon(CupertinoIcons.heart_fill, color: Colors.redAccent),
-                    ),
-                  ),
-                )
+                FavouriteButton(onPressed: () { onColorFavToggle(index); },
+                    isSaved: isSaved)
               ],
             ),
           ],

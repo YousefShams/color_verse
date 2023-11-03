@@ -8,7 +8,7 @@ class AppValues {
   static const verticalSpaceBetweenWidgets = 20.0;
   static const verticalSpaceBetweenSections = 30.0;
   static const splashIconSize = 40.0;
-  static const buttonPadding = 10.0;
+  static const buttonPadding = 8.0;
   static const circularProgressLineWidth = 3.0;
   static const colorPaletteHeight = 90.0;
   static const bookmarkedPaletteHeight = 140.0;
@@ -17,4 +17,6 @@ class AppValues {
   static const generatePaletteBorderRadius = 24.0;
   static const copyIconHeight = 32.0;
   static const defaultIconSize = 20.0;
+  static const bookmarkColorAspectRatio = 16/9;
+  static const bookmarkPaletteAspectRatio = 11/9;
 }

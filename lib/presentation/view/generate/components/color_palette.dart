@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/functions/functions.dart';
 import '../../../../app/resources/app_values.dart';
-import '../../../../app/components/color_palette_hex.dart';
+import '../../../../app/components/color_hex.dart';
 
 class ColorPalette extends StatelessWidget {
   final List<String> palette;
@@ -21,7 +21,7 @@ class ColorPalette extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     padding: const EdgeInsets.all(AppValues.pagePadding),
                     color: Color(AppFunctions.formatHexCodeToColorInput(palette[index])),
-                    child: ColorPaletteHex(hexCode: palette[index]),
+                    child: ColorHex(hexCode: palette[index]),
                   )
               )
           ),

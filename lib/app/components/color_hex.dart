@@ -1,12 +1,14 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:color_verse/app/components/default_snakebar.dart';
 import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_colors.dart';
+import 'package:color_verse/app/resources/app_strings.dart';
 import 'package:color_verse/app/resources/app_values.dart';
 import 'package:flutter/material.dart';
 
-class ColorPaletteHex extends StatelessWidget {
+class ColorHex extends StatelessWidget {
   final String hexCode;
-  const ColorPaletteHex({Key? key, required this.hexCode}) : super(key: key);
+  const ColorHex({Key? key, required this.hexCode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,10 @@ class ColorPaletteHex extends StatelessWidget {
           const SizedBox(width: AppValues.smallerPadding),
           IconButton(
               style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
-              onPressed: (){ FlutterClipboard.copy(hexCode); },
+              onPressed: (){
+                FlutterClipboard.copy(hexCode);
+                showDefaultSnackBar(context, AppStrings.copied);
+              },
               icon: const Icon(Icons.copy_rounded,color: Colors.white,))
         ],
       ),
