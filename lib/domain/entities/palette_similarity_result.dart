@@ -1,8 +1,10 @@
 // ignore_for_file: hash_and_equals
 
+import 'package:color_verse/domain/entities/color_palette_model.dart';
+
 class PaletteSimilarityResult {
 
-  final List<String> palette;
+  final ColorPaletteModel palette;
   final double distance;
 
   const PaletteSimilarityResult(this.palette, this.distance);
@@ -13,13 +15,7 @@ class PaletteSimilarityResult {
   bool operator ==(Object other) {
     final otherResult = other as PaletteSimilarityResult;
     final isSameDistance = distance == otherResult.distance;
-    bool isSamePalette = true;
-    for(int i = 0; i < palette.length ; i++) {
-      if(palette[i] != otherResult.palette[i]) {
-        isSamePalette = false;
-        break;
-      }
-    }
+    bool isSamePalette = palette.isEqualTo(other.palette);
     return isSamePalette && isSameDistance;
   }
 

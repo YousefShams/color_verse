@@ -2,15 +2,15 @@ import 'package:clipboard/clipboard.dart';
 import 'package:color_verse/app/components/default_snakebar.dart';
 import 'package:color_verse/app/components/delete_icon_button.dart';
 import 'package:color_verse/app/extensions/extensions.dart';
-import 'package:color_verse/app/functions/functions.dart';
 import 'package:color_verse/app/resources/app_strings.dart';
 import 'package:color_verse/app/resources/app_values.dart';
+import 'package:color_verse/domain/entities/color_model.dart';
 import 'package:color_verse/presentation/view_model/bookmarks/cubit.dart';
 import 'package:flutter/material.dart';
 
 class BookmarkColorItem extends StatefulWidget {
-  final String color;
-  const BookmarkColorItem({Key? key, required this.color}) : super(key: key);
+  final ColorModel colorModel;
+  const BookmarkColorItem({Key? key, required this.colorModel}) : super(key: key);
 
   @override
   State<BookmarkColorItem> createState() => _BookmarkColorItemState();
@@ -24,8 +24,8 @@ class _BookmarkColorItemState extends State<BookmarkColorItem> {
       visible: !deleted,
       child: GestureDetector(
         onTap: () {
-          FlutterClipboard.copy(widget.color);
-          showDefaultSnackBar(context, AppStrings.copied);
+          FlutterClipboard.copy(widget.colorModel.hexCode);
+          showDefaultSnackBar(AppStrings.copied);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +33,7 @@ class _BookmarkColorItemState extends State<BookmarkColorItem> {
             Expanded(child: ClipRRect(
               borderRadius: BorderRadius.circular(AppValues.defaultBorderRadius),
               child : Container(
-                color: Color(AppFunctions.formatHexCodeToColorInput(widget.color)),
+                color: widget.colorModel.color,
               ),
             )),
             const SizedBox(height: AppValues.smallPadding),
@@ -41,10 +41,10 @@ class _BookmarkColorItemState extends State<BookmarkColorItem> {
               padding: const EdgeInsetsDirectional.only(start: AppValues.smallerPadding),
               child: Row(
                 children: [
-                  Text(widget.color, style: context.textTheme.labelLarge),
+                  Text(widget.colorModel.hexCode, style: context.textTheme.labelLarge),
                   const Spacer(),
                   DeleteIconButton(onPressed: (){
-                    BookmarksCubit.get(context).deleteBookmarkedColor(widget.color);
+                    BookmarksCubit.get(context).deleteBookmarkedColor(widget.colorModel);
                     setState(() { deleted = true; });
                   })
                 ],

@@ -1,20 +1,27 @@
-import 'package:color_verse/app/resources/app_shared_prefs_keys.dart';
+import 'package:color_verse/domain/entities/color_model.dart';
+import 'package:color_verse/domain/entities/color_palette_model.dart';
 import 'package:color_verse/presentation/view_model/bookmarks/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/apis/local/local_api.dart';
+import '../../../domain/usecases/delete_color_usecase.dart';
+import '../../../domain/usecases/delete_palette_usecase.dart';
+import '../../../domain/usecases/get_colors_usecase.dart';
+import '../../../domain/usecases/get_palettes_usecase.dart';
 
 
 class BookmarksCubit extends Cubit<BookmarksState> {
-  final LocalApi localApi;
-  BookmarksCubit(this.localApi) : super(BookmarksInitialState());
+  final GetPalettesUsecase _getPalettesUC;
+  final GetColorsUsecase _getColorsUC;
+  final DeleteColorUsecase _deleteColorUC;
+  final DeletePaletteUsecase _deletePaletteUC;
+  BookmarksCubit(this._getPalettesUC, this._getColorsUC, this._deleteColorUC, this._deletePaletteUC) : super(BookmarksInitialState());
 
   static BookmarksCubit get(context) => BlocProvider.of(context);
 
   //Variables
-  List<String> colorsCodes = [];
-  List<List<String>> palettes = [];
-  List<String> colorsCodesView = [];
-  List<List<String>> palettesView = [];
+  List<ColorModel> colors = [];
+  List<ColorPaletteModel> palettes = [];
+  List<ColorModel> colorsView = [];
+  List<ColorPaletteModel> palettesView = [];
 
   //Events
   Future init() async {
@@ -25,31 +32,29 @@ class BookmarksCubit extends Cubit<BookmarksState> {
 
   Future getBookmarkedColor() async {
     emit(BookmarksLoadingState());
-    final result = List<String>.from((await localApi.getAll(AppDbKeys.colorsDb)).values.toList() ?? []);
-    colorsCodes = result.toList();
-    colorsCodesView = colorsCodes.sublist(0, (colorsCodes.length < 4) ? colorsCodes.length : 4);
+    colors = await _getColorsUC.execute(null);
+    colorsView = colors.sublist(0, (colors.length < 4) ? colors.length : 4);
     emit(BookmarksUpdateState());
   }
 
   Future getBookmarkedPalettes() async {
     emit(BookmarksLoadingState());
-    final result = List<List<String>>.from((await localApi.getAll(AppDbKeys.palettesDb)).values.toList() ?? []);
-    palettes = result.toList();
+    palettes = await _getPalettesUC.execute(null);
     palettesView = palettes.sublist(0, (palettes.length < 4) ? palettes.length : 4);
     emit(BookmarksUpdateState());
   }
 
-  void deleteBookmarkedColor(String color) {
-    localApi.delete(AppDbKeys.colorsDb, color);
-    colorsCodes.remove(color);
-    colorsCodesView.remove(color);
+  Future deleteBookmarkedColor(ColorModel color) async {
+    await _deleteColorUC.execute(color);
+    colors.removeWhere((c) => c.id == color.id);
+    colorsView.removeWhere((c) => c.id == color.id);
     emit(BookmarksUpdateState());
   }
 
-  void deleteBookmarkedPalette(List<String> palette) {
-    localApi.delete(AppDbKeys.palettesDb, palette.toString());
-    palettes.remove(palettes.firstWhere((e) => e.toString()==palette.toString()));
-    palettesView.remove(palettesView.firstWhere((e) => e.toString()==palette.toString()));
+  Future deleteBookmarkedPalette(ColorPaletteModel palette) async {
+    await _deletePaletteUC.execute(palette);
+    palettes.remove(palettes.firstWhere((e) => e.id==palette.id));
+    palettesView.remove(palettesView.firstWhere((e) => e.id==palette.id));
     emit(BookmarksUpdateState());
   }
 }

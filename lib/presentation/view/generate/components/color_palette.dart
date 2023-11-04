@@ -1,11 +1,10 @@
+import 'package:color_verse/domain/entities/color_palette_model.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../app/functions/functions.dart';
 import '../../../../app/resources/app_values.dart';
 import '../../../../app/components/color_hex.dart';
 
 class ColorPalette extends StatelessWidget {
-  final List<String> palette;
+  final ColorPaletteModel palette;
   const ColorPalette({Key? key, required this.palette}) : super(key: key);
 
   @override
@@ -20,8 +19,8 @@ class ColorPalette extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     padding: const EdgeInsets.all(AppValues.pagePadding),
-                    color: Color(AppFunctions.formatHexCodeToColorInput(palette[index])),
-                    child: ColorHex(hexCode: palette[index]),
+                    color: palette.paletteColors[index].color,
+                    child: ColorHex(hexCode: palette.paletteColors[index].hexCode),
                   )
               )
           ),

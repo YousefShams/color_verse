@@ -1,10 +1,10 @@
 import 'package:color_verse/app/components/loading_screen.dart';
 import 'package:color_verse/app/components/page_title.dart';
+import 'package:color_verse/app/di/di.dart';
 import 'package:color_verse/app/resources/app_values.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../data/apis/local/local_api.dart';
 import '../../../view_model/bookmarks/cubit.dart';
 import '../../../view_model/bookmarks/state.dart';
 
@@ -17,7 +17,7 @@ class BookmarksSeeAllPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (cubitContext) => BookmarksCubit(const LocalApi())..init(),
+      create: (cubitContext) => getIt<BookmarksCubit>()..init(),
       child: BlocBuilder<BookmarksCubit, BookmarksState>(
         builder: (cubitContext, state) {
           return (state is BookmarksLoadingState) ? const LoadingScreen() :

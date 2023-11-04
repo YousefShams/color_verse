@@ -15,4 +15,8 @@ class AppStrings {
   static const result = "Result";
   static const savePalette = "Save Palette";
   static const copied = "Copied Successfully";
+  static const saved = "Saved Successfully";
+  static const bookmarkedPalettesEmpty = "No Bookmarked Palettes";
+  static const bookmarkedColorsEmpty = "No Bookmarked Colors";
+
 }

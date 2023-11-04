@@ -1,5 +1,5 @@
+import 'package:color_verse/app/di/di.dart';
 import 'package:color_verse/app/resources/app_colors.dart';
-import 'package:color_verse/data/apis/local/local_api.dart';
 import 'package:color_verse/presentation/view/bookmarks/components/bookmarked_colors.dart';
 import 'package:color_verse/presentation/view/bookmarks/components/bookmarked_palettes.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class BookmarksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const p = AppValues.pagePadding;
     return BlocProvider(
-      create: (cubitContext) => BookmarksCubit(const LocalApi())..init(),
+      create: (cubitContext) => getIt<BookmarksCubit>()..init(),
       child: BlocBuilder<BookmarksCubit, BookmarksState>(
         builder: (cubitContext, state) {
           final cubit = BookmarksCubit.get(cubitContext);
@@ -28,11 +28,12 @@ class BookmarksScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(p,p,p,0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BookmarkedPalettes(palettes: cubit.palettesView,
                     allPalettes : cubit.palettes),
-                  BookmarkedColors(colors: cubit.colorsCodesView,
-                      allColors : cubit.colorsCodes)
+                  BookmarkedColors(colors: cubit.colorsView,
+                      allColors : cubit.colors)
                 ],
               ),
             ),

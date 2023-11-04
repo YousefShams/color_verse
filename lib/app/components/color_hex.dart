@@ -30,7 +30,7 @@ class ColorHex extends StatelessWidget {
               style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
               onPressed: (){
                 FlutterClipboard.copy(hexCode);
-                showDefaultSnackBar(context, AppStrings.copied);
+                showDefaultSnackBar(AppStrings.copied);
               },
               icon: const Icon(Icons.copy_rounded,color: Colors.white,))
         ],

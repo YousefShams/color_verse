@@ -1,6 +1,7 @@
 import 'package:color_verse/app/components/default_button.dart';
 import 'package:color_verse/app/components/loading_screen.dart';
 import 'package:color_verse/app/components/page_title.dart';
+import 'package:color_verse/app/di/di.dart';
 import 'package:color_verse/app/resources/app_strings.dart';
 import 'package:color_verse/app/resources/app_values.dart';
 import 'package:color_verse/presentation/view/images/components/image_palette.dart';
@@ -8,7 +9,6 @@ import 'package:color_verse/presentation/view/images/components/image_picked.dar
 import 'package:color_verse/presentation/view/images/components/image_placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/apis/local/local_api.dart';
 import '../../view_model/image/cubit.dart';
 import '../../view_model/image/state.dart';
 
@@ -19,7 +19,7 @@ class ImageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const p = AppValues.pagePadding;
     return BlocProvider(
-      create: (cubitContext) => ImageCubit(const LocalApi()),
+      create: (cubitContext) => getIt<ImageCubit>(),
       child: BlocBuilder<ImageCubit, ImageState>(
         builder: (cubitContext, state) {
           final cubit = ImageCubit.get(cubitContext);

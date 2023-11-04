@@ -1,8 +1,9 @@
 import 'package:color_verse/app/components/color_pallete_widget.dart';
+import 'package:color_verse/domain/entities/color_palette_model.dart';
 import 'package:flutter/material.dart';
 
 class ColorPalettesList extends StatelessWidget {
-  final List<List<String>> colorPalettes;
+  final List<ColorPaletteModel> colorPalettes;
   final Function onPaletteSave;
   final Function isPaletteSaved;
   const ColorPalettesList({Key? key, required this.colorPalettes,
@@ -14,7 +15,8 @@ class ColorPalettesList extends StatelessWidget {
       child: ListView.builder(
         itemCount: colorPalettes.length,
         itemBuilder: (context, index) =>
-            ColorPaletteWidget(hexColors: colorPalettes[index],
+            ColorPaletteWidget(
+              palette: colorPalettes[index],
               onPaletteSave: () { onPaletteSave(index); },
               isPaletteSaved:  isPaletteSaved(index),
             ),

@@ -1,15 +1,10 @@
-import 'package:color_verse/app/components/app_title.dart';
-import 'package:color_verse/app/resources/app_colors.dart';
-import 'package:color_verse/app/constants/app_palettes.dart';
-import 'package:color_verse/app/resources/app_strings.dart';
+import 'package:color_verse/app/di/di.dart';
 import 'package:color_verse/app/resources/app_values.dart';
-import 'package:color_verse/data/apis/local/local_api.dart';
 import 'package:color_verse/presentation/view/home/components/color_palettes_list.dart';
 import 'package:color_verse/presentation/view/home/components/home_title.dart';
 import 'package:color_verse/presentation/view_model/home/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../view_model/home/state.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const p = AppValues.pagePadding;
     return BlocProvider(
-      create: (cubitContext) => HomeCubit(const LocalApi())..init(),
+      create: (cubitContext) => getIt<HomeCubit>()..init(),
       child: BlocBuilder<HomeCubit,HomeState>(
         builder: (context, state) {
           final cubit = HomeCubit.get(context);
@@ -32,8 +27,9 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   const HomeTitle(),
                   const SizedBox(height: AppValues.verticalSpaceBetweenWidgets),
-                  ColorPalettesList(colorPalettes: appPalettes,
-                    onPaletteSave: cubit.togglePaletteFavButton, isPaletteSaved: cubit.isPaletteSaved,)
+                  ColorPalettesList(colorPalettes: cubit.palettes,
+                    onPaletteSave: cubit.togglePaletteFavButton,
+                    isPaletteSaved: cubit.isPaletteSaved,)
                 ],
               ),
             ),

@@ -1,22 +1,29 @@
-import 'package:color_verse/app/resources/app_shared_prefs_keys.dart';
+import 'package:color_verse/domain/entities/color_model.dart';
+import 'package:color_verse/domain/entities/color_palette_model.dart';
 import 'package:color_verse/presentation/view_model/color_palette/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/apis/local/local_api.dart';
+import '../../../domain/usecases/delete_color_usecase.dart';
+import '../../../domain/usecases/get_colors_usecase.dart';
+import '../../../domain/usecases/save_color_usecase.dart';
 
 
 class ColorPaletteCubit extends Cubit<ColorPaletteState> {
-  final LocalApi localApi;
-  ColorPaletteCubit(this.localApi) : super(ColorPaletteInitialState());
+  final GetColorsUsecase _getColorsUC;
+  final SaveColorUsecase _saveColorUC;
+  final DeleteColorUsecase _deleteColorUC;
+
+  ColorPaletteCubit(this._getColorsUC, this._saveColorUC,
+      this._deleteColorUC) : super(ColorPaletteInitialState());
 
   static ColorPaletteCubit get(context) => BlocProvider.of(context);
 
   //Variables
-  List<String> savedColorsCodes = [];
-  List<String> palette = [];
+  List<ColorModel> savedColors = [];
+  late ColorPaletteModel palette;
   //Events
-  Future init(List<String> hexCodes) async {
+  Future init(ColorPaletteModel palette) async {
     emit(ColorPaletteLoadingState());
-    palette.addAll(hexCodes);
+    this.palette = palette;
     await getBookmarkedColor();
     emit(ColorPaletteUpdateState());
   }
@@ -24,27 +31,28 @@ class ColorPaletteCubit extends Cubit<ColorPaletteState> {
 
   Future getBookmarkedColor() async {
     emit(ColorPaletteLoadingState());
-    final result = List<String>.from((await localApi.getAll(AppDbKeys.colorsDb)).values.toList() ?? []);
-    savedColorsCodes.addAll(result);
+    final result = await _getColorsUC.execute(null);
+    savedColors.addAll(result);
     emit(ColorPaletteUpdateState());
   }
 
 
   bool isColorSaved(int index) {
-    return savedColorsCodes.any((colorCode) => colorCode == palette[index]);
+    return savedColors.any(
+            (colorModel) => colorModel.id == palette.paletteColors[index].id);
   }
 
   Future toggleColorFavButton(int index) async {
-    final color = palette[index];
+    final color = palette.paletteColors[index];
     final isSaved = isColorSaved(index);
     if(!isSaved) {
-      await localApi.save(AppDbKeys.colorsDb, {color: color});
-      savedColorsCodes.add(color);
+      await _saveColorUC.execute(color);
+      savedColors.add(color);
       emit(ColorPaletteUpdateState());
     }
     else {
-      localApi.delete(AppDbKeys.colorsDb, color);
-      savedColorsCodes.remove(color);
+      await _deleteColorUC.execute(color);
+      savedColors.remove(color);
       emit(ColorPaletteUpdateState());
     }
   }

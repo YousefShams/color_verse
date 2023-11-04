@@ -1,20 +1,26 @@
 import 'package:color_verse/app/constants/app_palettes.dart';
-import 'package:color_verse/app/functions/functions.dart';
-import 'package:color_verse/app/resources/app_shared_prefs_keys.dart';
+import 'package:color_verse/domain/entities/color_model.dart';
+import 'package:color_verse/domain/entities/color_palette_model.dart';
 import 'package:color_verse/presentation/view_model/home/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/apis/local/local_api.dart';
+import '../../../domain/usecases/delete_palette_usecase.dart';
+import '../../../domain/usecases/get_palettes_usecase.dart';
+import '../../../domain/usecases/save_palette_usecase.dart';
 
 
 class HomeCubit extends Cubit<HomeState> {
-  final LocalApi localApi;
-  HomeCubit(this.localApi) : super(HomeInitialState());
+  final GetPalettesUsecase getPalettesUC;
+  final SavePaletteUsecase savePaletteUC;
+  final DeletePaletteUsecase deletePaletteUC;
+
+  HomeCubit(this.getPalettesUC, this.savePaletteUC,
+      this.deletePaletteUC) : super(HomeInitialState());
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
   //Variables
-  List<String> savedColorsCodes = [];
-  List<List<String>> savedPalettes = [];
+  List<ColorModel> savedColorsCodes = [];
+  List<ColorPaletteModel> savedPalettes = [];
   final palettes = appPalettes;
 
   //Events
@@ -27,28 +33,28 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future getBookmarkedPalettes() async {
     emit(HomeLoadingState());
-    final result = List<List<String>>.from((await localApi.getAll(AppDbKeys.palettesDb)).values.toList() ?? []);
+    final result = await getPalettesUC.execute(null);
     savedPalettes.addAll(result);
     emit(HomeUpdateState());
   }
 
   bool isPaletteSaved(int index) {
     final palette = palettes[index];
-    return savedPalettes.any((savedPalette) => AppFunctions.isPalettesEqual(savedPalette, palette));
+    return savedPalettes.any((savedPalette) => palette.isEqualTo(savedPalette));
   }
 
   Future togglePaletteFavButton(int index) async {
     final palette = palettes[index];
     final isSaved = isPaletteSaved(index);
     if(!isSaved) {
-      await localApi.save(AppDbKeys.palettesDb, {palette.toString() : palette});
+      await savePaletteUC.execute(palette);
       savedPalettes.add(palette);
       emit(HomeUpdateState());
     }
     else {
-      localApi.delete(AppDbKeys.palettesDb, palette.toString());
+      await deletePaletteUC.execute(palette);
       savedPalettes.remove(savedPalettes.firstWhere(
-         (e) => AppFunctions.isPalettesEqual(e, palette)));
+              (savedPalette) => palette.isEqualTo(savedPalette)));
       emit(HomeUpdateState());
     }
   }

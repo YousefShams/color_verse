@@ -2,15 +2,10 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:color_verse/app/constants/platte_color_names.dart';
+import 'package:color_verse/app/constants/palette_color_names.dart';
 
 class AppFunctions {
 
-  static int formatHexCodeToColorInput(String hexCode) {
-    hexCode = hexCode.substring(1,hexCode.length);
-    hexCode = (hexCode.length!=8) ? "ff${hexCode.toLowerCase()}" : hexCode;
-    return int.parse("0x$hexCode");
-  }
 
   static String getColorNameFromHexCodes(List<String> hexCodes) {
     final copy = hexCodes.toList();
@@ -57,8 +52,9 @@ class AppFunctions {
 
   static String findNearestColorName(String hexColor) {
     // Convert the input hex color string to uppercase for consistency.
-    hexColor = hexColor.toUpperCase();
 
+    hexColor = hexColor.toUpperCase();
+    hexColor = hexColor.length == 9 ? "#${hexColor.substring(3)}" : hexColor;
     double minDistance = double.infinity;
     late String nearestColorName;
 
@@ -83,10 +79,4 @@ class AppFunctions {
     return nearestColorName;
   }
 
-  static bool isPalettesEqual(List<String> palette1, List<String> palette2) {
-    for(int i = 0 ; i< palette1.length ; i++) {
-      if(palette1[i] != palette2[i]) return false;
-    }
-    return true;
-  }
 }

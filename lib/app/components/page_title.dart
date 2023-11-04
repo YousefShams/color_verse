@@ -16,7 +16,7 @@ class PageTitle extends StatelessWidget {
       child: Text(
         title, style: context.textTheme.titleLarge?.copyWith(
         fontWeight: AppFonts.lightFontWeight,
-        fontSize: AppFonts.xlLargerFontSize
+        fontSize: AppFonts.xlLargerFontSize,
       )),
     );
   }

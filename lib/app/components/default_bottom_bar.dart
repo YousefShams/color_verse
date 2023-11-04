@@ -1,4 +1,3 @@
-import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_colors.dart';
 import 'package:color_verse/app/resources/app_strings.dart';
 import 'package:color_verse/app/resources/app_values.dart';
@@ -17,8 +16,8 @@ class DefaultBottomNavBar extends StatelessWidget {
       padding: const EdgeInsets.only(left: p/2, right: p/2, bottom: p/2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppValues.defaultBorderRadius),
-        boxShadow: [BoxShadow(color: context.textTheme.titleLarge!.color!.withOpacity(0.3),
-            blurRadius: 15, spreadRadius: -7, offset: const Offset(0, 5))]
+        boxShadow: [BoxShadow(color: AppColors.primaryColor.withOpacity(0.4),
+            blurRadius: 18, spreadRadius: -9, offset: const Offset(0, 5))]
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(AppValues.defaultBorderRadius),

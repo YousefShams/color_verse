@@ -18,5 +18,5 @@ class AppValues {
   static const copyIconHeight = 32.0;
   static const defaultIconSize = 20.0;
   static const bookmarkColorAspectRatio = 16/9;
-  static const bookmarkPaletteAspectRatio = 11/9;
+  static const bookmarkPaletteAspectRatio = 11.5/9;
 }

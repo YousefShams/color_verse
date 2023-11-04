@@ -1,5 +1,6 @@
+import 'package:color_verse/domain/entities/color_palette_model.dart';
 
-final List<List<String>> appPalettes =  [
+var appPalettes =  [
   ["#F8F9FA", "#E9ECEF", "#CED4DA", "#ADB5BD", "#6C757D"],
   ["#FAEBD7", "#FFE4C4", "#FFFACD", "#D8BFD8", "#B0E0E6"],
   ["#F0FFF0", "#FFF8DC", "#FFE4E1", "#FAF0E6", "#F0E68C"],
@@ -162,4 +163,4 @@ final List<List<String>> appPalettes =  [
   ["#FF4500", "#FFA500", "#FF8C00", "#FF7F50", "#FA8072"],
   ["#FF69B4", "#FF1493", "#C71585", "#DB7093", "#DA70D6"],
 
-]..shuffle();
+].map((hexCodes) => ColorPaletteModel.fromHexCodes(hexCodes)).toList()..shuffle();

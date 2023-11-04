@@ -1,21 +1,23 @@
-import 'package:color_verse/app/functions/functions.dart';
+import 'package:color_verse/domain/entities/color_model.dart';
+import 'package:color_verse/domain/entities/color_palette_model.dart';
 import 'package:color_verse/presentation/view_model/image/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:palette_generator/palette_generator.dart';
-import '../../../app/resources/app_shared_prefs_keys.dart';
-import '../../../data/apis/local/local_api.dart';
+import '../../../app/components/default_snakebar.dart';
+import '../../../app/resources/app_strings.dart';
+import '../../../domain/usecases/save_palette_usecase.dart';
 
 
 class ImageCubit extends Cubit<ImageState> {
-  final LocalApi localApi;
-  ImageCubit(this.localApi) : super(ImageInitialState());
+  final SavePaletteUsecase _savePaletteUC;
+  ImageCubit(this._savePaletteUC) : super(ImageInitialState());
 
   static ImageCubit get(context) => BlocProvider.of(context);
 
   //Variables
-  List<String>? palette;
+  ColorPaletteModel? palette;
   ImageProvider? image;
   bool get isPaletteGenerated => palette != null;
 
@@ -32,11 +34,11 @@ class ImageCubit extends Cubit<ImageState> {
 
   Future<XFile?> pickImage() async {
     return await ImagePicker().pickImage(source: ImageSource.gallery,
-        imageQuality: 25);
+        imageQuality: 50);
   }
 
 
-  Future<List<String>> generatePalette(XFile file) async {
+  Future<ColorPaletteModel> generatePalette(XFile file) async {
     final bytes = await file.readAsBytes();
 
     final imageResult = Image.memory(bytes).image;
@@ -46,15 +48,15 @@ class ImageCubit extends Cubit<ImageState> {
     final paletteGen = await PaletteGenerator.fromImageProvider(
         imageResult, maximumColorCount: 6);
 
-    final palette = paletteGen.paletteColors.map((e) =>
-        AppFunctions.getHexCodeFromColor(e.color)).toList();
+    final palette = paletteGen.paletteColors.map((e) => ColorModel(e.color)).toList();
 
-    return palette;
+    return ColorPaletteModel(palette);
   }
 
   Future savePalette() async {
     if(isPaletteGenerated) {
-      await localApi.save(AppDbKeys.palettesDb, {palette.toString() : palette});
+      await _savePaletteUC.execute(palette!);
+      showDefaultSnackBar(AppStrings.saved);
     }
   }
 }
