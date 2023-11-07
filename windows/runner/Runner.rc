@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.color_verse" "\0"
-            VALUE "FileDescription", "color_verse" "\0"
+            VALUE "FileDescription", "ColorVerse" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "color_verse" "\0"
+            VALUE "InternalName", "ColorVerse" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.color_verse. All rights reserved." "\0"
-            VALUE "OriginalFilename", "color_verse.exe" "\0"
-            VALUE "ProductName", "color_verse" "\0"
+            VALUE "OriginalFilename", "ColorVerse.exe" "\0"
+            VALUE "ProductName", "ColorVerse" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

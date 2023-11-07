@@ -2,6 +2,7 @@ import 'package:color_verse/app/components/default_button.dart';
 import 'package:color_verse/app/components/loading_screen.dart';
 import 'package:color_verse/app/components/page_title.dart';
 import 'package:color_verse/app/di/di.dart';
+import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_strings.dart';
 import 'package:color_verse/app/resources/app_values.dart';
 import 'package:color_verse/presentation/view/images/components/image_palette.dart';
@@ -59,7 +60,7 @@ class ImageScreen extends StatelessWidget {
                 ),
               ),
             ),
-          );
+          ).animate();
         },
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:color_verse/app/di/di.dart';
+import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_colors.dart';
 import 'package:color_verse/presentation/view/bookmarks/components/bookmarked_colors.dart';
 import 'package:color_verse/presentation/view/bookmarks/components/bookmarked_palettes.dart';
@@ -36,7 +37,7 @@ class BookmarksScreen extends StatelessWidget {
                       allColors : cubit.colors)
                 ],
               ),
-            ),
+            ).animate(),
           );
           }
         },

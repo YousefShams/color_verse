@@ -7,7 +7,7 @@ void showDefaultSnackBar(String text) {
    final borderRadius = BorderRadius.circular(AppValues.defaultBorderRadius);
    ScaffoldMessenger.of(navigatorKey.currentState!.context).showSnackBar(
        SnackBar(
-         duration: const Duration(seconds: AppConsts.toastDuration),
+         duration: const Duration(milliseconds: AppConsts.toastDuration),
          behavior: SnackBarBehavior.floating,
          backgroundColor: Colors.green,
          shape: RoundedRectangleBorder(borderRadius: borderRadius),

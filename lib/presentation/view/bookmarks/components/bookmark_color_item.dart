@@ -30,12 +30,23 @@ class _BookmarkColorItemState extends State<BookmarkColorItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppValues.defaultBorderRadius),
-              child : Container(
-                color: widget.colorModel.color,
-              ),
-            )),
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppValues.defaultBorderRadius),
+                child : TweenAnimationBuilder(
+                  tween: Tween<double>(begin: 0.0, end: 1.0),
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: AppValues.defaultAnimationTime),
+                  builder: (context, double value, _) {
+                    return Transform.scale(
+                      alignment: Alignment.topLeft,
+                      scaleX: value,
+                      child: Container(color: widget.colorModel.color),
+                    );
+                  },
+                )
+              )
+            ),
             const SizedBox(height: AppValues.smallPadding),
             Padding(
               padding: const EdgeInsetsDirectional.only(start: AppValues.smallerPadding),

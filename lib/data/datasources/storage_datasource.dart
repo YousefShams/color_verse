@@ -39,12 +39,12 @@ class StorageDatasource implements BaseStorageDatasource  {
 
   @override
   Future deleteColor(Map<String, dynamic> color) async {
-    _localApi.delete(AppDbKeys.colorsDb, color['id']);
+    await _localApi.delete(AppDbKeys.colorsDb, color['id']);
   }
 
   @override
   Future deletePalette(Map<String, dynamic> palette) async {
-    _localApi.delete(AppDbKeys.palettesDb, palette['id']);
+    await _localApi.delete(AppDbKeys.palettesDb, palette['id']);
   }
 
 

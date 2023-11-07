@@ -1,4 +1,5 @@
 import 'package:color_verse/app/di/di.dart';
+import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_assets.dart';
 import 'package:color_verse/presentation/view/generate/components/color_palette.dart';
 import 'package:color_verse/presentation/view/generate/components/generate_bottom_buttons.dart';
@@ -46,7 +47,7 @@ class GenerateScreen extends StatelessWidget {
                 )
               ],
             ),
-          );
+          ).animate();
         },
       ),
     );

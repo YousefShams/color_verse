@@ -12,7 +12,7 @@ class AppStrings {
   static const yourColors = "Your Colors";
   static const pickImage = "Pick Image";
   static const pickImageText = "Pick an image to generate a color palette";
-  static const result = "Result";
+  static const result = "Image Result";
   static const savePalette = "Save Palette";
   static const copied = "Copied Successfully";
   static const saved = "Saved Successfully";

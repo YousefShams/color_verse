@@ -3,6 +3,7 @@ import '../../../app/components/branding_widget.dart';
 import '../../../app/constants/constants.dart';
 import '../../../app/routes/app_routes.dart';
 
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -21,8 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
             tween: Tween(begin: 0.0, end: 1.0),
             duration: const Duration(seconds: 1),
             builder: (context, value, widget) => AnimatedOpacity(
+              duration: const Duration(seconds: AppConsts.splashAnimationTime),
               opacity: value,
-              duration: const Duration(seconds: AppConsts.splashTime-1),
               child: widget,
             ),
             child: const BrandingWidget(),

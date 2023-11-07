@@ -1,3 +1,4 @@
+import 'package:color_verse/app/components/default_animation.dart';
 import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,15 @@ class HomeTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppValues.pagePadding),
-      child: Text(
-          AppStrings.homeTitle, style: context.textTheme.titleLarge?.copyWith(
+    return DefaultAnimationWidget(
+      offsetStartY: 50,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppValues.pagePadding),
+        child: Text(
+            AppStrings.homeTitle, style: context.textTheme.titleLarge?.copyWith(
           fontSize: AppFonts.xXLFontSize, color: AppColors.primaryColor,
-      )),
+        )),
+      ),
     );
   }
 }

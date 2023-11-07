@@ -7,9 +7,9 @@ import 'package:color_verse/app/constants/palette_color_names.dart';
 class AppFunctions {
 
 
-  static String getColorNameFromHexCodes(List<String> hexCodes) {
+  static String getColorNameFromHexCodes(List<String> hexCodes, {int number = 3}) {
     final copy = hexCodes.toList();
-    return copy.sublist(0,3).fold("",(prev , curr) => "$prev#${findNearestColorName(curr)}  ");
+    return copy.sublist(0,number).fold("",(prev , curr) => "$prev#${findNearestColorName(curr)}  ");
 
   }
 
@@ -27,6 +27,13 @@ class AppFunctions {
     hexColor = hexColor.toUpperCase().replaceAll("#", "");
     int value = int.parse(hexColor, radix: 16);
     return Color(value);
+  }
+
+  static double getPaletteColorAnimationOffset(int colorsLength, int index,
+      double width) {
+    int midIndex = (colorsLength/2).floor();
+    int factor =  index - midIndex;
+    return factor * width;
   }
 
   static double calculateColorDistanceFromPalette(String hexColor, List<String> palette) {

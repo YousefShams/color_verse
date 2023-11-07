@@ -19,4 +19,10 @@ class AppValues {
   static const defaultIconSize = 20.0;
   static const bookmarkColorAspectRatio = 16/9;
   static const bookmarkPaletteAspectRatio = 11.5/9;
+  static const brandingWidth = 200.0;
+  static const defaultAnimationTime = 1000;
+  static const fastAnimationTime = 600;
+  static const colorPaletteOpacityMs = 300;
+  static const colorPaletteTranslationMs = 800;
+  static const pageAnimationTime = 300;
 }

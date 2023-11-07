@@ -33,7 +33,8 @@ class BookmarksSeeAllPage extends StatelessWidget {
                 children: [
                   PageTitle(title: title),
                   const SizedBox(height: AppValues.pagePadding),
-                  Expanded(child: child)
+                  Expanded(child: child),
+                  const SizedBox(height: AppValues.pagePadding),
                 ],
               ),
             ),

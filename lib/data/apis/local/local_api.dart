@@ -24,7 +24,7 @@ class LocalApi {
     await database.close();
   }
 
-  void delete(String dbName, String id) async {
+  Future delete(String dbName, String id) async {
     final database = await Hive.openBox(dbName);
     database.delete(id);
     await database.close();

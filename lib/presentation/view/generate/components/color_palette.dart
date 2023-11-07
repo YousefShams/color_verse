@@ -1,3 +1,4 @@
+import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/domain/entities/color_palette_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../app/resources/app_values.dart';
@@ -25,7 +26,7 @@ class ColorPalette extends StatelessWidget {
               )
           ),
         ),
-      ),
+      ).animate(),
     );
   }
 }

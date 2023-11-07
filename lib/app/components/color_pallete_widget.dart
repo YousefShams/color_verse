@@ -1,4 +1,5 @@
 import 'package:color_verse/app/components/color_palette_row.dart';
+import 'package:color_verse/app/components/default_animation.dart';
 import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/functions/functions.dart';
 import 'package:color_verse/app/resources/app_colors.dart';
@@ -37,25 +38,37 @@ class ColorPaletteWidget extends StatelessWidget {
             const SizedBox(height: AppValues.smallPadding),
             Padding(
               padding: const EdgeInsetsDirectional.only(start: AppValues.smallPadding),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 10,
-                    child: Text(
-                      AppFunctions.getColorNameFromHexCodes(palette.hexCodes),
-                      style: context.textTheme.labelLarge,
-                      maxLines: 1, overflow: TextOverflow.clip,
+              child: DefaultAnimationWidget(
+                offsetStartX: 100,
+                offsetStartY: 0,
+                opacityMs: AppValues.defaultAnimationTime,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: Text(
+                        AppFunctions.getColorNameFromHexCodes(palette.hexCodes),
+                        style: context.textTheme.labelLarge,
+                        maxLines: 1, overflow: TextOverflow.clip,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: AppValues.pagePadding),
-                  IconButton(onPressed: onPaletteSave,
-                      iconSize: AppValues.defaultIconSize,
-                      style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
-                      icon: (isPaletteSaved) ?
-                      const Icon(CupertinoIcons.heart_fill, color: Colors.redAccent) :
-                      Icon(CupertinoIcons.heart, color: AppColors.defaultIconColor)
-                  )
-                ],
+                    const SizedBox(width: AppValues.pagePadding),
+                    IconButton(
+                        onPressed: onPaletteSave,
+                        iconSize: AppValues.defaultIconSize,
+                        style: const ButtonStyle(tapTargetSize: MaterialTapTargetSize.shrinkWrap,),
+                        icon: AnimatedScale(
+                          curve: Curves.bounceOut,
+                          duration: const Duration(milliseconds: AppValues.fastAnimationTime),
+                          scale: isPaletteSaved ? 1.15 : 0.8 ,
+                          child: Icon(
+                            isPaletteSaved ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                            color: isPaletteSaved ? Colors.redAccent : AppColors.defaultIconColor
+                          ),
+                        )
+                    )
+                  ],
+                ),
               ),
             )
           ],
