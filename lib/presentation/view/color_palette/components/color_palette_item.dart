@@ -29,7 +29,7 @@ class ColorPaletteItem extends StatelessWidget {
               children: [
                 Visibility(
                   visible: index == 0,
-                  child: const CloseIconButton(),
+                  child: const SafeArea(child: CloseIconButton()),
                 ),
                 const Spacer()
               ],
