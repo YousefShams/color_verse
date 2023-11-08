@@ -22,44 +22,43 @@ class _BookmarkPaletteItemState extends State<BookmarkPaletteItem> {
   @override
   Widget build(BuildContext context) {
     final cubit = BookmarksCubit.get(context);
-    return Visibility(
-      visible: !deleted,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
+    return deleted
+      ? const SizedBox.shrink()
+      : Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
             child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.colorPaletteRoute,
-                    arguments: widget.palette).then((_) => cubit.init());
-              },
-              child: ColorPaletteRow(colorsModels: widget.palette.paletteColors)
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.colorPaletteRoute,
+                      arguments: widget.palette).then((_) => cubit.init());
+                },
+                child: ColorPaletteRow(colorsModels: widget.palette.paletteColors)
             )
-          ),
-          const SizedBox(height: AppValues.smallPadding),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: AppValues.smallerPadding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Text(
-                    AppFunctions.getColorNameFromHexCodes(widget.palette.hexCodes),
-                    style: context.textTheme.labelSmall,
-                    maxLines: 2, overflow: TextOverflow.clip,
-                  ),
+        ),
+        const SizedBox(height: AppValues.smallPadding),
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: AppValues.smallerPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Text(
+                  AppFunctions.getColorNameFromHexCodes(widget.palette.hexCodes),
+                  style: context.textTheme.labelSmall,
+                  maxLines: 2, overflow: TextOverflow.clip,
                 ),
-                const SizedBox(width: AppValues.smallerPadding),
-                DeleteIconButton(onPressed: () {
-                  cubit.deleteBookmarkedPalette(widget.palette);
-                  setState(() { deleted = true; });
-                })
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+              const SizedBox(width: AppValues.smallerPadding),
+              DeleteIconButton(onPressed: () {
+                cubit.deleteBookmarkedPalette(widget.palette);
+                setState(() { deleted = true; });
+              })
+            ],
+          ),
+        )
+      ],
     );
   }
 }

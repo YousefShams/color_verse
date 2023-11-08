@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_assets.dart';
 import 'package:color_verse/domain/entities/color_model.dart';
@@ -11,17 +13,15 @@ import '../../../../app/resources/app_strings.dart';
 import '../../../view_model/bookmarks/cubit.dart';
 
 class BookmarkedColors extends StatelessWidget {
-  final List<ColorModel> colors;
   final List<ColorModel> allColors;
 
-  const BookmarkedColors({Key? key, required this.colors,
-    required this.allColors}) : super(key: key);
+  const BookmarkedColors({Key? key,required this.allColors}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     const flex = 4;
     return Visibility(
-      visible: colors.isNotEmpty,
+      visible: allColors.isNotEmpty,
       replacement: const BookmarksEmpty(text: AppStrings.bookmarkedColorsEmpty,
         asset: AppAssets.colorCards, flex: flex,
       ),
@@ -36,10 +36,7 @@ class BookmarkedColors extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                     onTap: () { Navigator.push(context, PageTransition(
-                        BookmarksSeeAllPage(
-                            title: AppStrings.yourColors,
-                            child: BookmarksColorGrid(colors: allColors)
-                        )
+                        const BookmarksSeeAllPage(isPalette: false)
                     )).then((_) => BookmarksCubit.get(context).init());
                     },
                     child: Text(AppStrings.seeAll, style: context.textTheme.labelLarge)
@@ -47,7 +44,7 @@ class BookmarkedColors extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: BookmarksColorGrid(colors: colors),
+              child: BookmarksColorGrid(colors: allColors.sublist(0,min(4, allColors.length))),
             )
           ],
         ),

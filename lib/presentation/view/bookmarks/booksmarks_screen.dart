@@ -31,10 +31,8 @@ class BookmarksScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BookmarkedPalettes(palettes: cubit.palettesView,
-                    allPalettes : cubit.palettes),
-                  BookmarkedColors(colors: cubit.colorsView,
-                      allColors : cubit.colors)
+                  BookmarkedPalettes(allPalettes : cubit.palettes),
+                  BookmarkedColors(allColors : cubit.colors)
                 ],
               ),
             ).animate(),

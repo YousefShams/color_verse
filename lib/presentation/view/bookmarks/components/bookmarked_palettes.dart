@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:color_verse/app/extensions/extensions.dart';
 import 'package:color_verse/app/resources/app_assets.dart';
 import 'package:color_verse/app/resources/app_page_transition.dart';
@@ -12,16 +14,14 @@ import '../../../../app/resources/app_strings.dart';
 import 'bookmarks_empty.dart';
 
 class BookmarkedPalettes extends StatelessWidget {
-  final List<ColorPaletteModel> palettes;
   final List<ColorPaletteModel> allPalettes;
-  const BookmarkedPalettes({Key? key, required this.palettes,
-    required this.allPalettes}) : super(key: key);
+  const BookmarkedPalettes({Key? key, required this.allPalettes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     const flex = 5;
     return Visibility(
-      visible: palettes.isNotEmpty,
+      visible: allPalettes.isNotEmpty,
       replacement: const BookmarksEmpty(text:AppStrings.bookmarkedPalettesEmpty,
         asset: AppAssets.palettes, flex: flex,
       ),
@@ -36,16 +36,14 @@ class BookmarkedPalettes extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () { Navigator.push(context, PageTransition(
-                      BookmarksSeeAllPage(
-                          title: AppStrings.yourPalettes,
-                          child: BookmarksPalettesGrid(palettes: allPalettes))
+                      const BookmarksSeeAllPage(isPalette: true)
                   )).then((_) => BookmarksCubit.get(context).init()); },
                   child: Text(AppStrings.seeAll, style: context.textTheme.labelLarge)
                 ),
               ],
             ),
             Expanded(
-              child: BookmarksPalettesGrid(palettes: palettes),
+              child: BookmarksPalettesGrid(palettes: allPalettes.sublist(0,min(4, allPalettes.length))),
             )
           ],
         ),

@@ -24,17 +24,15 @@ class ColorPaletteItem extends StatelessWidget {
         color: colorModel.color,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Visibility(
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Visibility(
                   visible: index == 0,
-                  child: const SafeArea(child: CloseIconButton()),
+                  child: const CloseIconButton(),
                 ),
-                const Spacer()
-              ],
+              ),
             ),
-            const Spacer(),
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
